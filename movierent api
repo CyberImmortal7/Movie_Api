@@ -1,0 +1,64 @@
+const movieStore = {
+    movies: [],
+    customers: [],
+  
+    addMovie: function(movie) {
+      this.movies.push(movie);
+    },
+  
+    addCustomer: function(customer) {
+      this.customers.push(customer);
+    },
+  
+    findMovieByTitle: function(title) {
+      return this.movies.find(function(movie) {
+        return movie.title === title;
+      });
+    },
+  
+    findCustomerByName: function(name) {
+      return this.customers.find(function(customer) {
+        return customer.name === name;
+      });
+    }
+  };
+  
+  function Movie(title, genre, rentalPrice) {
+    return {
+      title,
+      genre,
+      rentalPrice,
+      rent: function(customer) {
+        customer.rentedMovies = customer.rentedMovies || [];
+        customer.rentedMovies.push(this);
+        return true;
+      }
+    }
+  }
+  
+  function Customer(name) {
+    return { name, rentedMovies: [] };
+  }
+  
+  // Customers
+  const customer1 = Customer('Tekena');
+  const customer2 = Customer('Calvin');
+  
+  movieStore.addCustomer(customer1);
+  movieStore.addCustomer(customer2);
+  
+  const movie1 = Movie('Jumanji', 'Adventure', 5);
+  const movie2 = Movie('Inception', 'Sci-Fi', 4);
+  
+  movieStore.addMovie(movie1);
+  movieStore.addMovie(movie2);
+
+  console.log(customer1)// Shows my name Tekena
+  
+  console.log(movie1.rent(customer1)); // true
+  console.log(customer1.rentedMovies);
+  // All rental prices are in $
+
+
+
+ 
